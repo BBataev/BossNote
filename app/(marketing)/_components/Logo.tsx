@@ -4,30 +4,28 @@ import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const font = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "600"]
-})
+  subsets: ["latin"],
+  weight: ["400", "600"],
+});
 
 export const Logo = () => {
-    return (
-        <div className="hidden md:flex items-center gap-4" items-center gap-x-2>
-            <Image 
-                src="/logo.svg"
-                height="40"
-                width="40"
-                alt="logo"
-                className="dark:hidden"
-            />
-            <Image 
-                src="/logo2.svg"
-                height="40"
-                width="40"
-                alt="logo"
-                className="hidden dark:block"
-            />
-            <p className={cn("font-semibold", font.className)}>
-                Booba
-            </p>
-        </div>
-    )
-}
+  return (
+    <div className="hidden md:flex items-center gap-4 x-2">
+      <Image
+        src="/logo.svg"
+        height="40"
+        width="40"
+        alt="logo"
+        className="dark:hidden"
+      />
+      <Image
+        src="/logo2.svg"
+        height="40"
+        width="40"
+        alt="logo"
+        className="hidden dark:block"
+      />
+      <p className={cn("font-semibold", font.className)}>BossNote</p>
+    </div>
+  );
+};

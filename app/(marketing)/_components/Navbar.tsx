@@ -1,7 +1,7 @@
 "use client";
 
 import { useConvexAuth } from "convex/react";
-import { SignInButton, UserButton } from '@clerk/clerk-react';
+import { SignInButton, UserButton } from "@clerk/clerk-react";
 
 import { useScrollTop } from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils";
@@ -24,13 +24,11 @@ export const Navbar = () => {
     >
       <Logo />
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
-        {isLoading && (
-          <Spinner />
-        )}
+        {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
           <>
             <SignInButton mode="modal">
-              <Button variant="ghost" size='sm'>
+              <Button variant="ghost" size="sm">
                 Log in
               </Button>
             </SignInButton>
@@ -40,13 +38,9 @@ export const Navbar = () => {
         {isAuthenticated && !isLoading && (
           <>
             <Button size={"sm"} asChild>
-              <Link href="/documents">
-                Enter Booba
-              </Link>
+              <Link href="/documents">Enter BossNote</Link>
             </Button>
-            <UserButton 
-              afterSignOutUrl="/"
-            />
+            <UserButton afterSignOutUrl="/" />
           </>
         )}
       </div>

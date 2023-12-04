@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -7,7 +8,7 @@ import { ConvexClientProvider } from "@/components/providers/convex";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Booba",
+  title: "BossNote",
   description: "The connected workspace where better, faster wprk happens.",
   icons: {
     icon: [
@@ -35,12 +36,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <ConvexClientProvider>
           <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          storageKey="booba-theme-2"
-            >
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            storageKey="booba-theme-2"
+          >
+            <Toaster position="bottom-center" />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
