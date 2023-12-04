@@ -30,7 +30,7 @@ export const UserItem = () => {
           </div>
         </div>
       </DropdownMenuTrigger>
-        <div role="button" className="absolute bottom-4 left-4 text-sm">
+        <div role="button" className="absolute bottom-4 left-4 text-sm text-muted-foreground">
             <SignOutButton>
                 Log out
             </SignOutButton>
