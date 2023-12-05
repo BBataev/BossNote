@@ -3,7 +3,7 @@
 import React from "react";
 
 import { useMediaQuery } from "usehooks-ts";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 import { toast } from "sonner";
 
@@ -32,7 +32,14 @@ import { api } from "@/convex/_generated/api";
 import { DocumentList } from "./DocumentList";
 import { TrashBox } from "./TrashBox";
 
+import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
+import { Navbar } from "./Navbar";
+
 const Navigation = () => {
+  const search = useSearch();
+  const settings = useSettings();
+  const params = useParams();
   const pathName = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
@@ -149,8 +156,8 @@ const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
-          <Item label="Settings" icon={Settings} onClick={() => {}} />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={handleCreate} label="New note" icon={PlusCircle} />
         </div>
         <div className="mt-4">
@@ -184,15 +191,22 @@ const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
-        <nav className="bg-trasperent px-3 py-4 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="h-6 w-6 text-muted-foreground"
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar
+           isCollapsed={isCollapsed} 
+           onResetWidth={resetWidth} 
+          />
+        ) : (
+          <nav className="bg-trasperent px-3 py-4 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground"
+              />
+              )}
+          </nav> 
+        )}
       </div>
     </>
   );

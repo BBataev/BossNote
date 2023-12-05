@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { Spinner } from "@/components/spinner";
 import { Delete, Search, Trash, Undo } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { CofirmModal } from "@/components/modals/comfirm-modal";
+import { CofirmModal } from "@/components/modals/confirm-modal";
 
 export const TrashBox = () => {
   const router = useRouter();
@@ -54,7 +54,7 @@ export const TrashBox = () => {
       success: "Note deleted!",
       error: "Failed to delete note.",
     });
-    if (params.docuementId === documentId) {
+    if (params.documentId === documentId) {
       router.push("/documents");
     }
 
@@ -91,14 +91,14 @@ export const TrashBox = () => {
           >
             <span  className="truncate pl-2">{document.title}</span>
             <div className="flex items-center">
-                <div className="rounded-sm p-2 hover:bg-neutral-200"
+                <div className="rounded-sm p-2 hover:bg-neutral-300 dark:hover:bg-neutral-600"
                     role="button"
                     onClick={(e) => onRestore(e, document._id)}
                 >
                     <Undo className="h-4 w-4 text-muted-foreground" />
                 </div>
                 <CofirmModal onConfirm={() => onRemove(document._id)}>
-                <div className="rounded-sm p-2 hover:bg-neutral-200"
+                <div className="rounded-sm p-2 hover:bg-neutral-300  dark:hover:bg-neutral-600"
                     role="button"
                 >
                     <Trash className="h-4 w-4 text-muted-foreground" />
