@@ -132,6 +132,8 @@ const Navigation = () => {
       success: "New note created!",
       error: "Failed to create new note",
     });
+
+    
   };
 
 

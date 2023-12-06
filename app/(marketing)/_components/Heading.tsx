@@ -18,8 +18,8 @@ export const Heading = () => {
         <span className="underline">BossNote</span>
       </h1>
       <h3 className="text-base sm:text-xl md:text-2xl font-medium">
-      BossNote is the connected workspace where <br />
-        better, faster work happens.
+      BossNote is the best workspace where <br />
+        u can just fuck yourself.
       </h3>
       {isLoading && (
         <div className="w-full flex items-center justify-center">

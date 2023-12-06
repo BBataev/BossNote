@@ -10,9 +10,9 @@ import { Id } from "@/convex/_generated/dataModel";
 
 import { toast } from "sonner";
 import { Spinner } from "@/components/spinner";
-import { Delete, Divide, Search, Trash, Undo } from "lucide-react";
+import { Search, Trash, Undo } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { CofirmModal } from "@/components/modals/confirm-modal";
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Button } from "@/components/ui/button";
 
 export const TrashBox = () => {
@@ -29,7 +29,7 @@ export const TrashBox = () => {
   });
 
   const onClick = (documentId: string) => {
-    router.push(`/document/${documentId}`);
+    router.push(`/documents/${documentId}`);
   };
 
   const onRestore = (
@@ -70,9 +70,7 @@ export const TrashBox = () => {
   };
 
   const deleteOne = (documentId: Id<"documents">) => {
-    const promise = remove({ id: documentId });
-
-    promise;
+    remove({ id: documentId });
 
     if (params.documentId === documentId) {
       router.push("/documents");
@@ -94,8 +92,6 @@ export const TrashBox = () => {
 
     toast.success("All elements deleted!");
   };
-
-  console.log(documents);
 
   return (
     <div className="text-sm">
@@ -125,30 +121,32 @@ export const TrashBox = () => {
               >
                 <Undo className="h-4 w-4 text-muted-foreground" />
               </div>
-              <CofirmModal onConfirm={() => onRemove(document._id)}>
+              <ConfirmModal onConfirm={() => onRemove(document._id)}>
                 <div
                   className="rounded-sm p-2 hover:bg-neutral-300  dark:hover:bg-neutral-600"
                   role="button"
                 >
                   <Trash className="h-4 w-4 text-muted-foreground" />
                 </div>
-              </CofirmModal>
+              </ConfirmModal>
             </div>
           </div>
         ))}
         {(documents?.length === 0 || documents?.length === undefined) ? (
           <p className="text-xs text-center text-muted-foreground p-2">
-            No documents found.
+            There's no deleted documents.
           </p>
         ) : (
-          <CofirmModal onConfirm={deleteAll}>
-            <Button
-              className="text-xs px-2 h-7 text-muted-foreground"
-              variant="ghost"
-            >
-              Delete all
-            </Button>
-          </CofirmModal>
+          <div className="flex gap-x-4">
+            <ConfirmModal onConfirm={deleteAll}>
+              <Button
+                className="text-xs px-2 h-7 text-muted-foreground"
+                variant="ghost"
+              >
+                Delete all
+              </Button>
+            </ConfirmModal>
+          </div>
         )}
       </div>
     </div>

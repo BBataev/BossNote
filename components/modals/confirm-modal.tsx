@@ -16,7 +16,7 @@ interface ConfirmModalProps {
     children: React.ReactNode;
     onConfirm: () => void;
 };
-export const CofirmModal = ({
+export const ConfirmModal = ({
     children,
     onConfirm
 }: ConfirmModalProps) => {
