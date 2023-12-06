@@ -35,6 +35,7 @@ import { TrashBox } from "./TrashBox";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import { Navbar } from "./Navbar";
+import { useRouter } from "next/navigation";
 
 const Navigation = () => {
   const search = useSearch();
@@ -43,6 +44,7 @@ const Navigation = () => {
   const pathName = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
+  const router = useRouter();
 
   const isResizing = React.useRef(false);
   const sidebar = React.useRef<React.ElementRef<"aside">>(null);
@@ -125,17 +127,14 @@ const Navigation = () => {
   const handleCreate = () => {
     const promise = create({
       title: "Untitled",
-    });
+    }).then((documentId) => router.push(`/documents/${documentId}`))
 
     toast.promise(promise, {
       loading: "Creating a new note...",
       success: "New note created!",
       error: "Failed to create new note",
     });
-
-    
   };
-
 
   return (
     <>
@@ -195,10 +194,7 @@ const Navigation = () => {
         )}
       >
         {!!params.documentId ? (
-          <Navbar
-           isCollapsed={isCollapsed} 
-           onResetWidth={resetWidth} 
-          />
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
         ) : (
           <nav className="bg-trasperent px-3 py-4 w-full">
             {isCollapsed && (
@@ -207,8 +203,8 @@ const Navigation = () => {
                 role="button"
                 className="h-6 w-6 text-muted-foreground"
               />
-              )}
-          </nav> 
+            )}
+          </nav>
         )}
       </div>
     </>
