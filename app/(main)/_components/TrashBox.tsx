@@ -10,9 +10,10 @@ import { Id } from "@/convex/_generated/dataModel";
 
 import { toast } from "sonner";
 import { Spinner } from "@/components/spinner";
-import { Delete, Search, Trash, Undo } from "lucide-react";
+import { Delete, Divide, Search, Trash, Undo } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { CofirmModal } from "@/components/modals/confirm-modal";
+import { Button } from "@/components/ui/button";
 
 export const TrashBox = () => {
   const router = useRouter();
@@ -54,6 +55,7 @@ export const TrashBox = () => {
       success: "Note deleted!",
       error: "Failed to delete note.",
     });
+
     if (params.documentId === documentId) {
       router.push("/documents");
     }
@@ -67,6 +69,34 @@ export const TrashBox = () => {
     }
   };
 
+  const deleteOne = (documentId: Id<"documents">) => {
+    const promise = remove({ id: documentId });
+
+    promise;
+
+    if (params.documentId === documentId) {
+      router.push("/documents");
+    }
+
+    if (documents === undefined) {
+      return (
+        <div className="h-full flex items-center justify-center p-4">
+          <Spinner size="lg" />
+        </div>
+      );
+    }
+  };
+
+  const deleteAll = () => {
+    documents?.map((document) => {
+      deleteOne(document._id);
+    });
+
+    toast.success("All elements deleted!");
+  };
+
+  console.log(documents);
+
   return (
     <div className="text-sm">
       <div className="flex items-center gap-x-1 p-2">
@@ -78,10 +108,7 @@ export const TrashBox = () => {
           placeholder="Filter by page title..."
         />
       </div>
-      <div className="mt-2 px-1 pb-1">
-        <p className="hidden last:block text-xs text-center text-muted-foreground pb-2">
-          No documents found.
-        </p>
+      <div className="px-1 pb-1">
         {filteredDocuments?.map((document) => (
           <div
             key={document._id}
@@ -89,25 +116,40 @@ export const TrashBox = () => {
             onClick={() => onClick(document._id)}
             className="text-sm rounded-sm w-full hover:bg-primary/5 flex items-center text-primary justify-between"
           >
-            <span  className="truncate pl-2">{document.title}</span>
+            <span className="truncate pl-2">{document.title}</span>
             <div className="flex items-center">
-                <div className="rounded-sm p-2 hover:bg-neutral-300 dark:hover:bg-neutral-600"
-                    role="button"
-                    onClick={(e) => onRestore(e, document._id)}
+              <div
+                className="rounded-sm p-2 hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                role="button"
+                onClick={(e) => onRestore(e, document._id)}
+              >
+                <Undo className="h-4 w-4 text-muted-foreground" />
+              </div>
+              <CofirmModal onConfirm={() => onRemove(document._id)}>
+                <div
+                  className="rounded-sm p-2 hover:bg-neutral-300  dark:hover:bg-neutral-600"
+                  role="button"
                 >
-                    <Undo className="h-4 w-4 text-muted-foreground" />
+                  <Trash className="h-4 w-4 text-muted-foreground" />
                 </div>
-                <CofirmModal onConfirm={() => onRemove(document._id)}>
-                <div className="rounded-sm p-2 hover:bg-neutral-300  dark:hover:bg-neutral-600"
-                    role="button"
-                >
-                    <Trash className="h-4 w-4 text-muted-foreground" />
-                </div>
-                </CofirmModal>
+              </CofirmModal>
             </div>
-            
           </div>
         ))}
+        {(documents?.length === 0 || documents?.length === undefined) ? (
+          <p className="text-xs text-center text-muted-foreground p-2">
+            No documents found.
+          </p>
+        ) : (
+          <CofirmModal onConfirm={deleteAll}>
+            <Button
+              className="text-xs px-2 h-7 text-muted-foreground"
+              variant="ghost"
+            >
+              Delete all
+            </Button>
+          </CofirmModal>
+        )}
       </div>
     </div>
   );
