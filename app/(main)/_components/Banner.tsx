@@ -43,7 +43,7 @@ export const Banner = ({
     };
 
     return (
-        <div className="w-full bg-rose-500 text-center text-sm p-2 text-white flex items-center gap-x-4 justify-center">
+        <div className="w-full bg-rose-500 text-center text-sm p-2 text-white flex items-center gap-x-4 justify-center z-50">
             <p className="mr-12">
                 Page was moved to trash
             </p>
