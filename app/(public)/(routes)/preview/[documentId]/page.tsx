@@ -7,6 +7,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Toolbar } from "@/app/(main)/_components/Toolbar";
 import { Cover } from "@/components/Cover";
 import { Skeleton } from "@/components/ui/skeleton";
+import Editor from "@/components/Editor";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 
@@ -58,11 +59,13 @@ const documentIdPage = ({
     return (
         <div className="pb-40">
             <Cover
+                preview
                 url={document.coverImage}
             />
             <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-                <Toolbar initialData={document} />
+                <Toolbar preview initialData={document} />
                 <Editor
+                    editable={false}
                     onChange={onChange}
                     initialContent={document.content}
                 />

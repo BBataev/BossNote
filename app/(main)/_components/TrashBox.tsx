@@ -134,7 +134,7 @@ export const TrashBox = () => {
         ))}
         {(documents?.length === 0 || documents?.length === undefined) ? (
           <p className="text-xs text-center text-muted-foreground p-2">
-            There's no deleted documents.
+            There is no deleted documents.
           </p>
         ) : (
           <div className="flex gap-x-4">

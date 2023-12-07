@@ -41,7 +41,8 @@ export const Cover = ({
     return (
         <div className={cn("relative w-full m5-[15px] h-[35vh] mt-[50px] group",
             !url && "h-[5vh]",
-            url && "bg-muted"
+            url && "bg-muted",
+            preview && "mt-0"
         )}>
             {!!url && (
                 <Image
