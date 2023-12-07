@@ -1,21 +1,19 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { useUser } from "@clerk/clerk-react";
-
-import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { toast } from "sonner";
-
 import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+import { api } from "@/convex/_generated/api";
+import { Button } from "@/components/ui/button";
+
 const DocumentPage = () => {
+  const router = useRouter();
   const { user } = useUser();
   const create = useMutation(api.documents.create);
-  const router = useRouter();
 
   const onCreate = () => {
     const promise = create({

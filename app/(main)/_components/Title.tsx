@@ -42,7 +42,6 @@ export const Title = ({
         update({
             id: initialData._id,
             title: event.target.value || "Untitled",
-            isPublished: false
         });
     };
 

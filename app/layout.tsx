@@ -45,12 +45,12 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
               storageKey="booba-theme-2"
-              >
+            >
               <Toaster position="bottom-center" />
               <ModalProvider />
               {children}
             </ThemeProvider>
-            </EdgeStoreProvider>
+          </EdgeStoreProvider>
         </ConvexClientProvider>
       </body>
     </html>

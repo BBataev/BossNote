@@ -1,16 +1,16 @@
 "use client";
 
 import { ElementRef, useRef, useState } from "react";
-
-import { Doc } from "@/convex/_generated/dataModel";
-import { IconPicker } from "./IconPicker";
-import { Button } from "@/components/ui/button";
 import { ImageIcon, Smile, X } from "lucide-react";
 import { useMutation } from "convex/react";
+import TextareaAutosize from "react-textarea-autosize";
+
+import { useCoverImage } from "@/hooks/use-cover-image";
+import { Doc } from "@/convex/_generated/dataModel";
+import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 
-import TextAreaAutoSize from "react-textarea-autosize";
-import { useCoverImage } from "@/hooks/use-cover-image";
+import { IconPicker } from "./IconPicker";
 
 interface ToolbarProps {
   initialData: Doc<"documents">;
@@ -23,7 +23,6 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const [value, setValue] = useState(initialData.title);
 
   const update = useMutation(api.documents.update);
-
   const removeIcon = useMutation(api.documents.removeIcon);
 
   const coverImage = useCoverImage();
@@ -45,7 +44,6 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     update({
       id: initialData._id,
       title: value || "Untitled",
-      isPublished: false,
     });
   };
 
@@ -60,7 +58,6 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     update({
       id: initialData._id,
       icon,
-      isPublished: false,
     });
   };
 
@@ -118,18 +115,18 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
         )}
       </div>
       {isEditing && !preview ? (
-        <TextAreaAutoSize
+        <TextareaAutosize
           ref={inputRef}
           onBlur={disableInput}
           onKeyDown={onKeyDown}
           value={value}
           onChange={(e) => onInput(e.target.value)}
-          className="text-5xl bg-transparent font-bold break-words outline-none text-[#3f3f3f] dark:text-[#cfcfcf] resoze-none"
+          className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
         />
       ) : (
         <div
           onClick={enableInput}
-          className="pb-[11.5px] text-5xl font-bold break-words outline-none text-[#3f3f3f] dark:text-[#cfcfcf]"
+          className="pb-[11.5px] text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
         >
           {initialData.title}
         </div>
