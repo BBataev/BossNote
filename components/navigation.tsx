@@ -24,13 +24,13 @@ import {
   Trash,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { UserItem } from "./UserItem";
-import { Item } from "./Item";
+import { UserItem } from "../app/(main)/_components/UserItem";
+import { Item } from "../app/(main)/_components/Item";
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { DocumentList } from "./DocumentList";
-import { TrashBox } from "./TrashBox";
+import { DocumentList } from "../app/(main)/_components/DocumentList";
+import { TrashBox } from "../app/(main)/_components/TrashBox";
 
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
